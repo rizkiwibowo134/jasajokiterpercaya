@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Jasa Joki Terpercaya</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -112,11 +112,13 @@
 
         <section id="order" class="mt-5">
             <h2 class="text-center mb-4">Pesan Jasa Joki Sekarang</h2>
+
+            <!-- Form diperbarui: setiap input punya name, method POST, target ke iframe -->
             <div class="order-form">
-                <form id="orderForm">
+                <form id="orderForm" method="post" target="hidden_iframe">
                     <div class="mb-3">
                         <label for="product" class="form-label">Pilih Produk Joki</label>
-                        <select class="form-control" id="product" required>
+                        <select class="form-control" id="product" name="product" required>
                             <option value="">-- Pilih Produk --</option>
                             <option value="JOKI LAPORAN">JOKI LAPORAN</option>
                             <option value="JOKI MAKALAH">JOKI MAKALAH</option>
@@ -125,18 +127,21 @@
                     </div>
                     <div class="mb-3">
                         <label for="notes" class="form-label">Catatan</label>
-                        <textarea class="form-control" id="notes" rows="4" required></textarea>
+                        <textarea class="form-control" id="notes" name="notes" rows="4" required></textarea>
                     </div>
                     <div class="mb-3">
                         <label for="name" class="form-label">Nama</label>
-                        <input type="text" class="form-control" id="name" required>
+                        <input type="text" class="form-control" id="name" name="name" required>
                     </div>
                     <div class="mb-3">
                         <label for="contact" class="form-label">Kontak (Email/WA)</label>
-                        <input type="text" class="form-control" id="contact" required>
+                        <input type="text" class="form-control" id="contact" name="contact" required>
                     </div>
                     <button type="submit" class="btn btn-primary w-100">Kirim Pesanan</button>
                 </form>
+
+                <!-- iframe tersembunyi sebagai target POST (menghindari CORS dari fetch) -->
+                <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
             </div>
         </section>
     </div>
@@ -160,37 +165,41 @@
             else alert("Password salah!");
         }
 
-        // ✅ Kirim data pesanan ke Google Sheet
-        document.getElementById('orderForm').addEventListener('submit', function(e) {
+        // --- GANTI INI dengan Web App URL yang kamu dapatkan dari Deploy -> Web app ---
+        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyDRQJFEwd8uHFtdDDF0jOrHQaBR7mhmc0Lu9pVaONBA-g2JkknGgCrrZnOU9-V_nQXVw/exec";
+
+        // Handler submit: simpan lokal + kirim form POST ke Web App via iframe
+        const form = document.getElementById('orderForm');
+        form.addEventListener('submit', function(e) {
             e.preventDefault();
 
-            const order = {
+            // validasi HTML5
+            if (!form.reportValidity()) return;
+
+            // backup lokal
+            const orderBackup = {
                 product: document.getElementById('product').value,
                 notes: document.getElementById('notes').value,
                 name: document.getElementById('name').value,
                 contact: document.getElementById('contact').value,
                 timestamp: new Date().toLocaleString()
             };
-
-            // Simpan lokal (backup)
             const orders = JSON.parse(localStorage.getItem('orders')) || [];
-            orders.push(order);
+            orders.push(orderBackup);
             localStorage.setItem('orders', JSON.stringify(orders));
 
-            // Kirim ke Google Sheets
-            fetch("https://script.google.com/macros/s/AKfycbyDRQJFEwd8uHFtdDDF0jOrHQaBR7mhmc0Lu9pVaONBA-g2JkknGgCrrZnOU9-V_nQXVw/exec", {
-                method: "POST",
-                body: JSON.stringify(order),
-                headers: { "Content-Type": "application/json" }
-            })
-            .then(res => res.text())
-            .then(result => {
-                alert(result || "✅ Pesanan Anda telah tersimpan di Google Sheet!");
-                document.getElementById('orderForm').reset();
-            })
-            .catch(err => {
-                alert("⚠️ Gagal mengirim ke Google Sheet: " + err.message);
-            });
+            // set action ke Web App dan submit ke iframe
+            form.action = WEB_APP_URL;
+            form.target = "hidden_iframe";
+
+            // submit form (POST) ke Apps Script — tidak diblokir CORS
+            form.submit();
+
+            // berikan umpan balik ke user (iframe response cross-origin => kita menunggu dan asumsikan berhasil)
+            setTimeout(() => {
+                alert("✅ Pesanan dikirim. Silakan cek Google Sheet untuk konfirmasi.");
+                form.reset();
+            }, 800);
         });
     </script>
 </body>
