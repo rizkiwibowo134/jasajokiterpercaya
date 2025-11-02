@@ -279,7 +279,7 @@
             localStorage.setItem('orders', JSON.stringify(orders));
 
             // Kirim ke Google Sheet
-            fetch("https://script.google.com/macros/s/AKfycbzQs294YwBT_vxOpV4gwkevoqJjpBVXrPrCkuZbkPDWjBKrqfpNVsu1k0l2ZneFAOCfAw/exec", {
+            fetch("https://script.google.com/macros/s/AKfycbyDRQJFEwd8uHFtdDDF0jOrHQaBR7mhmc0Lu9pVaONBA-g2JkknGgCrrZnOU9-V_nQXVw/exec", {
                 method: "POST",
                 body: JSON.stringify(order),
                 headers: { "Content-Type": "application/json" }
@@ -296,3 +296,4 @@
     </script>
 </body>
 </html>
+
