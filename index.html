@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jasa Joki - Penjualan Joki Terpercaya</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #e3f2fd 0%, #ffffff 50%, #000000 100%);
+            font-family: 'Poppins', sans-serif;
+            color: #1565c0;
+            animation: fadeIn 1s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        header {
+            background: linear-gradient(90deg, #0d47a1 0%, #000000 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            animation: slideDown 1s ease-out;
+        }
+        @keyframes slideDown {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .hamburger {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            cursor: pointer;
+            z-index: 1000;
+            transition: transform 0.3s;
+        }
+        .hamburger:hover {
+            transform: scale(1.1);
+        }
+        .hamburger div {
+            width: 25px;
+            height: 3px;
+            background-color: white;
+            margin: 5px 0;
+            transition: 0.3s;
+        }
+        .hamburger.active div:nth-child(1) {
+            transform: rotate(-45deg) translate(-5px, 6px);
+        }
+        .hamburger.active div:nth-child(2) {
+            opacity: 0;
+        }
+        .hamburger.active div:nth-child(3) {
+            transform: rotate(45deg) translate(-5px, -6px);
+        }
+        .contact-menu {
+            position: absolute;
+            top: 60px;
+            left: 20px;
+            background: linear-gradient(135deg, #ffffff 0%, #e3f2fd 100%);
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            display: none;
+            padding: 15px;
+            width: 250px;
+            z-index: 999;
+            animation: fadeIn 0.5s ease-in;
+        }
+        .contact-menu.show {
+            display: block;
+        }
+        .product-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%);
+            border-radius: 15px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+            margin: 20px 0;
+            padding: 25px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            animation: bounceIn 0.8s ease-out;
+        }
+        @keyframes bounceIn {
+            0% { transform: scale(0.3); opacity: 0; }
+            50% { transform: scale(1.05); }
+            70% { transform: scale(0.9); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .product-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        .btn-primary {
+            background: linear-gradient(90deg, #1976d2 0%, #0d47a1 100%);
+            border: none;
+            transition: all 0.3s;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        .btn-primary:hover {
+            background: linear-gradient(90deg, #0d47a1 0%, #000000 100%);
+            transform: translateY(-2px);
+        }
+        .btn-success {
+            background: linear-gradient(90deg, #4caf50 0%, #388e3c 100%);
+            border: none;
+            transition: all 0.3s;
+        }
+        .btn-success:hover {
+            transform: translateY(-2px);
+        }
+        .btn-danger {
+            background: linear-gradient(90deg, #f44336 0%, #d32f2f 100%);
+            border: none;
+            transition: all 0.3s;
+        }
+        .btn-danger:hover {
+            transform: translateY(-2px);
+        }
+        .btn-secondary {
+            background: linear-gradient(90deg, #757575 0%, #000000 100%);
+            border: none;
+            transition: all 0.3s;
+        }
+        .btn-secondary:hover {
+            transform: translateY(-2px);
+        }
+        .btn-info {
+            background: linear-gradient(90deg, #00bcd4 0%, #0097a7 100%);
+            border: none;
+            transition: all 0.3s;
+        }
+        .btn-info:hover {
+            transform: translateY(-2px);
+        }
+        #dashboard {
+            display: none;
+            margin-top: 50px;
+            animation: fadeIn 0.5s ease-in;
+        }
+        .order-form {
+            background: linear-gradient(135deg, #ffffff 0%, #e3f2fd 100%);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+            animation: slideUp 0.8s ease-out;
+        }
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        footer {
+            background: linear-gradient(90deg, #0d47a1 0%, #000000 100%);
+            color: white;
+            text-align: center;
+            padding: 25px;
+            margin-top: 50px;
+            box-shadow: 0 -4px 10px rgba(0,0,0,0.3);
+            animation: fadeIn 1s ease-in;
+        }
+        h1, h2, h4 {
+            font-weight: 700;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+        p {
+            font-weight: 300;
+        }
+    </style>
+</head>
+<body>
+    <header ondblclick="checkAdminAccess()">
+        <div class="hamburger" onclick="toggleContactMenu()">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <h1>Jasa Joki Terpercaya</h1>
+        <p>Pesan jasa joki Anda sekarang! Cepat, aman, dan terpercaya.</p>
+    </header>
+
+    <div class="contact-menu" id="contactMenu">
+        <h5>Kontak Kami</h5>
+        <p><strong>Email:</strong> admin@jokiterpercaya.com</p>
+        <p>Hubungi kami untuk pertanyaan atau dukungan! Kami akan segera merespons.</p>
+    </div>
+
+    <div class="container mt-5">
+        <section id="about">
+            <h2 class="text-center mb-4">Tentang Kami</h2>
+            <p class="text-center">Kami menyediakan jasa joki untuk berbagai kebutuhan, seperti joki game, tugas kuliah, dan lainnya. Tim profesional kami siap membantu Anda mencapai target dengan cepat dan efisien. Pesan sekarang dan dapatkan hasil terbaik!</p>
+        </section>
+
+        <section id="products" class="mt-5">
+            <h2 class="text-center mb-4">Produk Joki Kami</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="product-card">
+                        <h4>Joki Rank Game</h4>
+                        <p>Naikkan rank game Anda dengan cepat. Pilih tier dan catat instruksi khusus.</p>
+                        <p><strong>Harga: Rp 50.000 - Rp 200.000</strong></p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="product-card">
+                        <h4>Joki Tugas Kuliah</h4>
+                        <p>Selesaikan tugas kuliah Anda. Berikan detail mata kuliah dan deadline.</p>
+                        <p><strong>Harga: Rp 100.000 - Rp 500.000</strong></p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="product-card">
+                        <h4>Joki Lainnya</h4>
+                        <p>Jasa joki custom sesuai kebutuhan Anda. Diskusikan via WhatsApp.</p>
+                        <p><strong>Harga: Sesuai Kesepakatan</strong></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="order" class="mt-5">
+            <h2 class="text-center mb-4">Pesan Jasa Joki Sekarang</h2>
+            <div class="order-form">
+                <form id="orderForm">
+                    <div class="mb-3">
+                        <label for="product" class="form-label">Pilih Produk Joki</label>
+                        <select class="form-control" id="product" required>
+                            <option value="">-- Pilih Produk --</option>
+                            <option value="Joki Rank Game">Joki Rank Game</option>
+                            <option value="Joki Tugas Kuliah">Joki Tugas Kuliah</option>
+                            <option value="Joki Lainnya">Joki Lainnya</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="notes" class="form-label">Catatan untuk Penjasa Joki</label>
+                        <textarea class="form-control" id="notes" rows="4" placeholder="Isi instruksi khusus, deadline, atau detail lainnya..." required></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Nama Anda</label>
+                        <input type="text" class="form-control" id="name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="contact" class="form-label">Kontak (Email/WhatsApp)</label>
+                        <input type="text" class="form-control" id="contact" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Kirim Pesanan</button>
+                </form>
+            </div>
+        </section>
+
+        <section id="dashboard">
+            <h2 class="text-center mb-4">Dashboard Pembelian (Admin Only)</h2>
+            <div class="d-flex justify-content-between mb-3 flex-wrap">
+                <button class="btn btn-secondary me-2" onclick="toggleDashboard()">Sembunyikan Dashboard</button>
+                <button class="btn btn-danger me-2" onclick="clearAllOrders()">Hapus Semua Pembelian</button>
+                <button class="btn btn-info me-2" onclick="exportData()">Export Data</button>
+                <input type="file" id="importFile" accept=".json" style="display: none;" onchange="importData()">
+                <button class="btn btn-success" onclick="document.getElementById('importFile').click()">Import Data</button>
+            </div>
+            <div id="ordersList"></div>
+        </section>
+    </div>
+
+    <footer>
+        <p>Butuh bantuan? Hubungi admin kami via WhatsApp untuk diskusi lebih lanjut.</p>
+        <a href="https://wa.me/6281234567890?text=Halo%20Admin,%20saya%20ingin%20bertanya%20tentang%20jasa%20joki." class="btn btn-success" target="_blank">Hubungi Admin via WhatsApp</a>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const adminPassword = "admin123";
+
+        function toggleContactMenu() {
+            console.log("Hamburger menu diklik");
+            const menu = document.getElementById('contactMenu');
+            const hamburger = document.querySelector('.hamburger');
+            menu.classList.toggle('show');
+            hamburger.classList.toggle('active');
+        }
+
+        function toggleDashboard() {
+            console.log("Dashboard toggle");
+            const dashboard = document.getElementById('dashboard');
+            dashboard.style.display = dashboard.style.display === 'none' ? 'block' : 'none';
+            loadOrders();
+        }
+
+        function loadOrders() {
+            console.log("Loading orders");
+            const orders = JSON.parse(localStorage.getItem('orders')) || [];
+            const ordersList = document.getElementById('ordersList');
+            ordersList.innerHTML = '';
+            if (orders.length === 0) {
+                ordersList.innerHTML = '<p>Tidak ada pembelian.</p>';
+            } else {
+                orders.forEach((order, index) => {
+                    ordersList.innerHTML += `
+                        <div class="alert alert-info d-flex justify-content-between align-items-start">
+                            <div>
+                                <strong>Pembelian ${index + 1}:</strong><br>
+                                Produk: ${order.product}<br>
+                                Nama: ${order.name}<br>
+                                Kontak: ${order.contact}<br>
+                                Catatan: ${order.notes}<br>
+                                Waktu: ${order.timestamp}
+                            </div>
+                            <button class="btn btn-sm btn-danger ms-2" onclick="deleteOrder(${index})">Hapus</button>
+                        </div>
+                    `;
+                });
+            }
+        }
+
+        function deleteOrder(index) {
+            console.log("Deleting order at index", index);
+            if (confirm("Apakah Anda yakin ingin menghapus pembelian ini?")) {
+                const orders = JSON.parse(localStorage.getItem('orders')) || [];
+                orders.splice(index, 1);
+                localStorage.setItem('orders', JSON.stringify(orders));
+                loadOrders();
+            }
+        }
+
+        function clearAllOrders() {
+            console.log("Clearing all orders");
+            if (confirm("Apakah Anda yakin ingin menghapus semua history pembelian? Tindakan ini tidak bisa dibatalkan.")) {
+                localStorage.removeItem('orders');
+                loadOrders();
+                alert("Semua history pembelian telah dihapus.");
+            }
+        }
+
+        function exportData() {
+            console.log("Exporting data");
+            const orders = JSON.parse(localStorage.getItem('orders')) || [];
+            const dataStr = JSON.stringify(orders, null, 2);
+            const dataBlob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(dataBlob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'pesanan_joki.json';
+            link.click();
+            URL.revokeObjectURL(url);
+            alert("Data berhasil diexport! Simpan file JSON ini untuk backup.");
+        }
+
+        function importData() {
+            console.log("Importing data");
+            const file = document.getElementById('importFile').files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    try {
+                        const importedOrders = JSON.parse(e.target.result);
+                        if (Array.isArray(importedOrders)) {
+                            localStorage.setItem('orders', JSON.stringify(importedOrders));
+                            loadOrders();
+                            alert("Data berhasil diimport!");
+                        } else {
+                            alert("File tidak valid. Pastikan file JSON berisi array pesanan.");
+                        }
+                    } catch (error) {
+                        alert("Error membaca file: " + error.message);
+                    }
+                };
+                reader.readAsText(file);
+            }
+        }
+
+        function checkAdminAccess() {
+            console.log("Checking admin access");
+            const password = prompt("Masukkan password admin:");
+            if (password === adminPassword) {
+                alert("Akses admin diterima! Dashboard akan ditampilkan.");
+                document.getElementById("dashboard").style.display = "block";
+                loadOrders();
+            } else {
+                alert("Password salah! Anda tidak memiliki akses ke dashboard.");
+            }
+        }
+
+        document.getElementById('orderForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            console.log("Submitting order");
+            
+            const product = document.getElementById('product').value;
+            const notes = document.getElementById('notes').value;
+            const name = document.getElementById('name').value;
+            const contact = document.getElementById('contact').value;
+
+            const order = {
+                product,
+                notes,
+                name,
+                contact,
+                timestamp: new Date().toLocaleString()
+            };
+
+            // Simpan ke localStorage
+            const orders = JSON.parse(localStorage.getItem('orders')) || [];
+            orders.push(order);
+            localStorage.setItem('orders', JSON.stringify(orders));
+
+            alert("Pesanan Anda telah dikirim dan tersimpan!");
+            document.getElementById('orderForm').reset();
+        });
+    </script>
+</body>
+</html>
