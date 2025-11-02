@@ -124,176 +124,74 @@
                         </select>
                     </div>
                     <div class="mb-3">
-                        <label for="notes" class="form-label">Catatan untuk Penjasa Joki</label>
-                        <textarea class="form-control" id="notes" rows="4" placeholder="Isi instruksi khusus, deadline, atau detail lainnya..." required></textarea>
+                        <label for="notes" class="form-label">Catatan</label>
+                        <textarea class="form-control" id="notes" rows="4" required></textarea>
                     </div>
                     <div class="mb-3">
-                        <label for="name" class="form-label">Nama Anda</label>
+                        <label for="name" class="form-label">Nama</label>
                         <input type="text" class="form-control" id="name" required>
                     </div>
                     <div class="mb-3">
-                        <label for="contact" class="form-label">Kontak (Email/WhatsApp)</label>
+                        <label for="contact" class="form-label">Kontak (Email/WA)</label>
                         <input type="text" class="form-control" id="contact" required>
                     </div>
                     <button type="submit" class="btn btn-primary w-100">Kirim Pesanan</button>
                 </form>
             </div>
         </section>
-
-        <section id="dashboard">
-            <h2 class="text-center mb-4">Dashboard Pembelian (Admin Only)</h2>
-            <div class="d-flex justify-content-between mb-3 flex-wrap">
-                <button class="btn btn-secondary me-2" onclick="toggleDashboard()">Sembunyikan Dashboard</button>
-                <button class="btn btn-danger me-2" onclick="clearAllOrders()">Hapus Semua Pembelian</button>
-                <button class="btn btn-info me-2" onclick="exportData()">Export Data</button>
-                <input type="file" id="importFile" accept=".json" style="display: none;" onchange="importData()">
-                <button class="btn btn-success" onclick="document.getElementById('importFile').click()">Import Data</button>
-            </div>
-            <div id="ordersList"></div>
-        </section>
     </div>
 
     <footer>
-        <p>Butuh bantuan? Hubungi admin kami via WhatsApp untuk diskusi lebih lanjut.</p>
-        <a href="https://wa.me/6287866051265?text=Halo%20Admin,%20saya%20ingin%20bertanya%20tentang%20jasa%20joki." class="btn btn-success" target="_blank">Hubungi Admin via WhatsApp</a>
+        <p>Butuh bantuan? Hubungi admin via WhatsApp</p>
+        <a href="https://wa.me/6287866051265?text=Halo%20Admin,%20saya%20ingin%20bertanya%20tentang%20jasa%20joki." class="btn btn-success" target="_blank">Hubungi Admin</a>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         const adminPassword = "bowokeren";
 
         function toggleContactMenu() {
-            const menu = document.getElementById('contactMenu');
-            const hamburger = document.querySelector('.hamburger');
-            menu.classList.toggle('show');
-            hamburger.classList.toggle('active');
-        }
-
-        function toggleDashboard() {
-            const dashboard = document.getElementById('dashboard');
-            dashboard.style.display = dashboard.style.display === 'none' ? 'block' : 'none';
-            loadOrders();
-        }
-
-        function loadOrders() {
-            const orders = JSON.parse(localStorage.getItem('orders')) || [];
-            const ordersList = document.getElementById('ordersList');
-            ordersList.innerHTML = '';
-            if (orders.length === 0) {
-                ordersList.innerHTML = '<p>Tidak ada pembelian.</p>';
-            } else {
-                orders.forEach((order, index) => {
-                    ordersList.innerHTML += `
-                        <div class="alert alert-info d-flex justify-content-between align-items-start">
-                            <div>
-                                <strong>Pembelian ${index + 1}:</strong><br>
-                                Produk: ${order.product}<br>
-                                Nama: ${order.name}<br>
-                                Kontak: ${order.contact}<br>
-                                Catatan: ${order.notes}<br>
-                                Waktu: ${order.timestamp}
-                            </div>
-                            <button class="btn btn-sm btn-danger ms-2" onclick="deleteOrder(${index})">Hapus</button>
-                        </div>
-                    `;
-                });
-            }
-        }
-
-        function deleteOrder(index) {
-            if (confirm("Apakah Anda yakin ingin menghapus pembelian ini?")) {
-                const orders = JSON.parse(localStorage.getItem('orders')) || [];
-                orders.splice(index, 1);
-                localStorage.setItem('orders', JSON.stringify(orders));
-                loadOrders();
-            }
-        }
-
-        function clearAllOrders() {
-            if (confirm("Apakah Anda yakin ingin menghapus semua history pembelian?")) {
-                localStorage.removeItem('orders');
-                loadOrders();
-                alert("Semua history pembelian telah dihapus.");
-            }
-        }
-
-        function exportData() {
-            const orders = JSON.parse(localStorage.getItem('orders')) || [];
-            const dataStr = JSON.stringify(orders, null, 2);
-            const dataBlob = new Blob([dataStr], { type: 'application/json' });
-            const url = URL.createObjectURL(dataBlob);
-            const link = document.createElement('a');
-            link.href = url;
-            link.download = 'pesanan_joki.json';
-            link.click();
-            URL.revokeObjectURL(url);
-            alert("Data berhasil diexport!");
-        }
-
-        function importData() {
-            const file = document.getElementById('importFile').files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    try {
-                        const importedOrders = JSON.parse(e.target.result);
-                        if (Array.isArray(importedOrders)) {
-                            localStorage.setItem('orders', JSON.stringify(importedOrders));
-                            loadOrders();
-                            alert("Data berhasil diimport!");
-                        } else alert("File tidak valid.");
-                    } catch (error) { alert("Error membaca file: " + error.message); }
-                };
-                reader.readAsText(file);
-            }
+            document.getElementById('contactMenu').classList.toggle('show');
+            document.querySelector('.hamburger').classList.toggle('active');
         }
 
         function checkAdminAccess() {
             const password = prompt("Masukkan password admin:");
-            if (password === adminPassword) {
-                alert("Akses admin diterima!");
-                document.getElementById("dashboard").style.display = "block";
-                loadOrders();
-            } else alert("Password salah!");
+            if (password === adminPassword) alert("Akses admin diterima!");
+            else alert("Password salah!");
         }
 
-        // ✅ Kode baru: kirim ke Google Sheets via Apps Script
+        // ✅ Kirim data pesanan ke Google Sheet
         document.getElementById('orderForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            const product = document.getElementById('product').value;
-            const notes = document.getElementById('notes').value;
-            const name = document.getElementById('name').value;
-            const contact = document.getElementById('contact').value;
 
             const order = {
-                product,
-                notes,
-                name,
-                contact,
+                product: document.getElementById('product').value,
+                notes: document.getElementById('notes').value,
+                name: document.getElementById('name').value,
+                contact: document.getElementById('contact').value,
                 timestamp: new Date().toLocaleString()
             };
 
-            // Simpan ke localStorage
+            // Simpan lokal (backup)
             const orders = JSON.parse(localStorage.getItem('orders')) || [];
             orders.push(order);
             localStorage.setItem('orders', JSON.stringify(orders));
 
-            // Kirim ke Google Sheet
+            // Kirim ke Google Sheets
             fetch("https://script.google.com/macros/s/AKfycbyDRQJFEwd8uHFtdDDF0jOrHQaBR7mhmc0Lu9pVaONBA-g2JkknGgCrrZnOU9-V_nQXVw/exec", {
                 method: "POST",
                 body: JSON.stringify(order),
                 headers: { "Content-Type": "application/json" }
             })
             .then(res => res.text())
-            .then(() => {
-                alert("✅ Pesanan Anda telah dikirim dan tersimpan di Google Sheet!");
+            .then(result => {
+                alert(result || "✅ Pesanan Anda telah tersimpan di Google Sheet!");
                 document.getElementById('orderForm').reset();
             })
             .catch(err => {
-                alert("⚠️ Gagal mengirim ke Google Sheet: " + err);
+                alert("⚠️ Gagal mengirim ke Google Sheet: " + err.message);
             });
         });
     </script>
 </body>
 </html>
-
