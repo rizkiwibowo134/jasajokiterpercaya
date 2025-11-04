@@ -1,29 +1,41 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Jasa Joki Terpercaya</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
 
   <style>
     body {
       background: linear-gradient(135deg, #e3f2fd, #ffffff, #000000);
-      font-family: 'Poppins', sans-serif;
+      font-family: "Poppins", sans-serif;
       color: #1565c0;
       overflow-x: hidden;
       animation: fadeIn 1.2s ease-in-out;
     }
 
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     @keyframes slideIn {
-      from { opacity: 0; transform: translateX(-50px); }
-      to { opacity: 1; transform: translateX(0); }
+      from {
+        opacity: 0;
+        transform: translateX(-50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
     }
 
     header {
@@ -32,48 +44,76 @@
       padding: 40px;
       text-align: center;
       position: relative;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
       transition: 0.3s;
     }
 
-    header:hover { transform: scale(1.02); }
+    header:hover {
+      transform: scale(1.02);
+    }
 
     .hamburger {
-      position: absolute; top: 25px; left: 25px;
-      cursor: pointer; z-index: 1000;
+      position: absolute;
+      top: 25px;
+      left: 25px;
+      cursor: pointer;
+      z-index: 1000;
     }
 
     .hamburger div {
-      width: 25px; height: 3px; background: white; margin: 5px 0;
+      width: 25px;
+      height: 3px;
+      background: white;
+      margin: 5px 0;
       transition: 0.4s;
     }
 
     .contact-menu {
-      position: absolute; top: 70px; left: 25px;
-      background: white; border-radius: 10px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-      display: none; padding: 15px; width: 250px; z-index: 999;
+      position: absolute;
+      top: 70px;
+      left: 25px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      display: none;
+      padding: 15px;
+      width: 250px;
+      z-index: 999;
       animation: slideIn 0.5s ease;
     }
 
-    .contact-menu.show { display: block; }
+    .contact-menu.show {
+      display: block;
+    }
 
     .product-card {
       background: linear-gradient(135deg, #ffffff, #f1f1f1);
-      border-radius: 15px; box-shadow: 0 6px 20px rgba(0,0,0,0.1);
-      margin: 20px 0; padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+      margin: 20px 0;
+      padding: 25px;
       transition: all 0.3s ease-in-out;
     }
 
     .product-card:hover {
       transform: translateY(-10px);
-      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
     }
 
-    .btn-primary { background: linear-gradient(90deg, #1976d2, #0d47a1); border: none; transition: 0.3s; }
-    .btn-primary:hover { transform: scale(1.05); }
+    .btn-primary {
+      background: linear-gradient(90deg, #1976d2, #0d47a1);
+      border: none;
+      transition: 0.3s;
+    }
 
-    #dashboard { display: none; margin-top: 50px; }
+    .btn-primary:hover {
+      transform: scale(1.05);
+    }
+
+    #dashboard {
+      display: none;
+      margin-top: 50px;
+    }
 
     .spinner {
       border: 4px solid #e3f2fd;
@@ -85,7 +125,11 @@
       margin: 30px auto;
     }
 
-    @keyframes spin { to { transform: rotate(360deg); } }
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
 
     footer {
       background: linear-gradient(90deg, #0d47a1, #000000);
@@ -93,14 +137,16 @@
       text-align: center;
       padding: 25px;
       margin-top: 50px;
-      box-shadow: 0 -4px 10px rgba(0,0,0,0.3);
+      box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.3);
     }
   </style>
 </head>
 <body>
   <header ondblclick="checkAdminAccess()">
     <div class="hamburger" onclick="toggleContactMenu()">
-      <div></div><div></div><div></div>
+      <div></div>
+      <div></div>
+      <div></div>
     </div>
     <h1>Jasa Joki Terpercaya</h1>
     <p>Pesan jasa joki Anda sekarang! Cepat, aman, dan terpercaya.</p>
@@ -116,9 +162,24 @@
     <section id="products" class="mt-5">
       <h2 class="text-center mb-4">Produk Joki Kami</h2>
       <div class="row">
-        <div class="col-md-4"><div class="product-card"><h4>Joki laporan</h4><p><strong>Rp 50.000 - Rp 200.000</strong></p></div></div>
-        <div class="col-md-4"><div class="product-card"><h4>Joki makalah</h4><p><strong>Rp 100.000 - Rp 500.000</strong></p></div></div>
-        <div class="col-md-4"><div class="product-card"><h4>Joki Lainnya</h4><p><strong>Harga: Sesuai Kesepakatan</strong></p></div></div>
+        <div class="col-md-4">
+          <div class="product-card">
+            <h4>Joki laporan</h4>
+            <p><strong>Rp 50.000 - Rp 200.000</strong></p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="product-card">
+            <h4>Joki makalah</h4>
+            <p><strong>Rp 100.000 - Rp 500.000</strong></p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="product-card">
+            <h4>Joki Lainnya</h4>
+            <p><strong>Harga: Sesuai Kesepakatan</strong></p>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -140,11 +201,11 @@
         </div>
         <div class="mb-3">
           <label class="form-label">Nama</label>
-          <input type="text" class="form-control" id="name" required>
+          <input type="text" class="form-control" id="name" required />
         </div>
         <div class="mb-3">
           <label class="form-label">Kontak (WA/Email)</label>
-          <input type="text" class="form-control" id="contact" required>
+          <input type="text" class="form-control" id="contact" required />
         </div>
         <button class="btn btn-primary w-100" type="submit">Kirim Pesanan</button>
       </form>
@@ -163,7 +224,7 @@
 
   <script>
     const adminPassword = "bowokeren";
-    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxXPyQVNU9NGcXszdL1g_CqZzK7LK-t1m8c5KrVPs1UgMYNsTawSi_qMz1jx5THF6qMeg/exec";
+    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycby4b5QN-1JxCjCj1wsTCpVBquLBTEXilzP-Lvu1B6VZLdKQg2MuibhakfBvRqnn036m4A/exec"; // Ganti dengan URL Web App dari Google Apps Script
 
     function toggleContactMenu() {
       document.getElementById("contactMenu").classList.toggle("show");
@@ -174,7 +235,9 @@
       if (pass === adminPassword) {
         document.getElementById("dashboard").style.display = "block";
         loadOrders();
-      } else alert("Password salah!");
+      } else {
+        alert("Password salah!");
+      }
     }
 
     document.getElementById("orderForm").addEventListener("submit", async (e) => {
@@ -184,12 +247,14 @@
         notes: notes.value,
         name: name.value,
         contact: contact.value,
-        timestamp: new Date().toLocaleString(),
+        timestamp: new Date().toLocaleString("id-ID"),
       };
+
+      const formData = new URLSearchParams(data);
 
       await fetch(WEB_APP_URL, {
         method: "POST",
-        body: JSON.stringify(data),
+        body: formData,
       });
 
       alert("✅ Pesanan berhasil dikirim!");
@@ -200,14 +265,16 @@
       const ordersList = document.getElementById("ordersList");
       ordersList.innerHTML = `<div class="spinner"></div><p class='text-center'>Memuat data dari Google Sheet...</p>`;
       try {
-        const res = await fetch(WEB_APP_URL + "?action=get");
+        const res = await fetch(WEB_APP_URL);
         const orders = await res.json();
         if (!orders || orders.length === 0) {
           ordersList.innerHTML = "<p class='text-center'>Belum ada pesanan.</p>";
           return;
         }
 
-        ordersList.innerHTML = orders.map((o, i) => `
+        ordersList.innerHTML = orders
+          .map(
+            (o, i) => `
           <div class="alert alert-info fade show" style="animation: fadeIn 0.5s;">
             <strong>#${i + 1}</strong><br>
             <b>Produk:</b> ${o.product}<br>
@@ -216,7 +283,9 @@
             <b>Catatan:</b> ${o.notes}<br>
             <small>${o.timestamp}</small>
           </div>
-        `).join('');
+        `
+          )
+          .join("");
       } catch (err) {
         console.error(err);
         ordersList.innerHTML = "<p class='text-center text-danger'>❌ Gagal memuat data.</p>";
