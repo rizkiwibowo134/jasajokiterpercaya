@@ -9,44 +9,90 @@
 
   <style>
     body {
-      background: linear-gradient(135deg, #e3f2fd 0%, #ffffff 50%, #000000 100%);
+      background: linear-gradient(135deg, #e3f2fd, #ffffff, #000000);
       font-family: 'Poppins', sans-serif;
       color: #1565c0;
-      animation: fadeIn 1s ease-in;
+      overflow-x: hidden;
+      animation: fadeIn 1.2s ease-in-out;
     }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateX(-50px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
     header {
-      background: linear-gradient(90deg, #0d47a1 0%, #000000 100%);
+      background: linear-gradient(90deg, #0d47a1, #000000);
       color: white;
-      padding: 30px;
+      padding: 40px;
       text-align: center;
       position: relative;
       box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      transition: 0.3s;
     }
+
+    header:hover { transform: scale(1.02); }
+
     .hamburger {
-      position: absolute; top: 20px; left: 20px;
+      position: absolute; top: 25px; left: 25px;
       cursor: pointer; z-index: 1000;
     }
+
     .hamburger div {
       width: 25px; height: 3px; background: white; margin: 5px 0;
+      transition: 0.4s;
     }
+
     .contact-menu {
-      position: absolute; top: 60px; left: 20px;
+      position: absolute; top: 70px; left: 25px;
       background: white; border-radius: 10px;
       box-shadow: 0 4px 15px rgba(0,0,0,0.2);
       display: none; padding: 15px; width: 250px; z-index: 999;
+      animation: slideIn 0.5s ease;
     }
+
     .contact-menu.show { display: block; }
+
     .product-card {
-      background: linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%);
+      background: linear-gradient(135deg, #ffffff, #f1f1f1);
       border-radius: 15px; box-shadow: 0 6px 20px rgba(0,0,0,0.1);
       margin: 20px 0; padding: 25px;
+      transition: all 0.3s ease-in-out;
     }
-    .btn-primary { background: linear-gradient(90deg, #1976d2 0%, #0d47a1 100%); border: none; }
+
+    .product-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    }
+
+    .btn-primary { background: linear-gradient(90deg, #1976d2, #0d47a1); border: none; transition: 0.3s; }
+    .btn-primary:hover { transform: scale(1.05); }
+
     #dashboard { display: none; margin-top: 50px; }
+
+    .spinner {
+      border: 4px solid #e3f2fd;
+      border-top: 4px solid #1565c0;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+      margin: 30px auto;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
     footer {
-      background: linear-gradient(90deg, #0d47a1 0%, #000000 100%);
-      color: white; text-align: center;
-      padding: 25px; margin-top: 50px;
+      background: linear-gradient(90deg, #0d47a1, #000000);
+      color: white;
+      text-align: center;
+      padding: 25px;
+      margin-top: 50px;
       box-shadow: 0 -4px 10px rgba(0,0,0,0.3);
     }
   </style>
@@ -67,56 +113,45 @@
   </div>
 
   <div class="container mt-5">
-    <section id="about">
-      <h2 class="text-center mb-4">Tentang Kami</h2>
-      <p class="text-center">Kami menyediakan jasa joki untuk berbagai kebutuhan, seperti joki laporan, joki makalah dan lainnya.</p>
-    </section>
-
     <section id="products" class="mt-5">
       <h2 class="text-center mb-4">Produk Joki Kami</h2>
       <div class="row">
-        <div class="col-md-4"><div class="product-card"><h4>Joki Laporan</h4><p><strong>Rp 50.000 - Rp 100.000</strong></p></div></div>
-        <div class="col-md-4"><div class="product-card"><h4>Joki Makalah</h4><p><strong>Rp 75.000 - Rp 100.000</strong></p></div></div>
+        <div class="col-md-4"><div class="product-card"><h4>Joki laporan</h4><p><strong>Rp 50.000 - Rp 200.000</strong></p></div></div>
+        <div class="col-md-4"><div class="product-card"><h4>Joki makalah</h4><p><strong>Rp 100.000 - Rp 500.000</strong></p></div></div>
         <div class="col-md-4"><div class="product-card"><h4>Joki Lainnya</h4><p><strong>Harga: Sesuai Kesepakatan</strong></p></div></div>
       </div>
     </section>
 
     <section id="order" class="mt-5">
-      <h2 class="text-center mb-4">Pesan Jasa Joki Sekarang</h2>
-      <div class="order-form">
-        <form id="orderForm" method="POST" target="hidden_iframe">
-          <div class="mb-3">
-            <label class="form-label">Pilih Produk</label>
-            <select class="form-control" id="product" name="product" required>
-              <option value="">-- Pilih Produk --</option>
-              <option value="Joki Rank Game">Joki Laporan</option>
-              <option value="Joki Tugas Kuliah">Joki Makalah</option>
-              <option value="Joki Lainnya">Joki Lainnya</option>
-            </select>
-          </div>
-          <div class="mb-3">
-            <label class="form-label">Catatan</label>
-            <textarea class="form-control" id="notes" name="notes" rows="4" required></textarea>
-          </div>
-          <div class="mb-3">
-            <label class="form-label">Nama</label>
-            <input type="text" class="form-control" id="name" name="name" required>
-          </div>
-          <div class="mb-3">
-            <label class="form-label">Kontak (Email/WA)</label>
-            <input type="text" class="form-control" id="contact" name="contact" required>
-          </div>
-          <button type="submit" class="btn btn-primary w-100">Kirim Pesanan</button>
-        </form>
-        <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
-      </div>
+      <h2 class="text-center mb-4">Pesan Sekarang</h2>
+      <form id="orderForm" class="p-4 bg-light rounded shadow">
+        <div class="mb-3">
+          <label class="form-label">Pilih Produk</label>
+          <select class="form-control" id="product" required>
+            <option value="">-- Pilih Produk --</option>
+            <option>Joki laporan</option>
+            <option>Joki makalah</option>
+            <option>Joki Lainnya</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Catatan</label>
+          <textarea class="form-control" id="notes" rows="3" required></textarea>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Nama</label>
+          <input type="text" class="form-control" id="name" required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Kontak (WA/Email)</label>
+          <input type="text" class="form-control" id="contact" required>
+        </div>
+        <button class="btn btn-primary w-100" type="submit">Kirim Pesanan</button>
+      </form>
     </section>
 
     <section id="dashboard">
       <h2 class="text-center mb-4">Dashboard Admin</h2>
-      <div class="text-center mb-3">
-        <button class="btn btn-secondary" onclick="toggleDashboard()">Sembunyikan Dashboard</button>
-      </div>
       <div id="ordersList"></div>
     </section>
   </div>
@@ -131,80 +166,60 @@
     const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxXPyQVNU9NGcXszdL1g_CqZzK7LK-t1m8c5KrVPs1UgMYNsTawSi_qMz1jx5THF6qMeg/exec";
 
     function toggleContactMenu() {
-      document.getElementById('contactMenu').classList.toggle('show');
+      document.getElementById("contactMenu").classList.toggle("show");
     }
 
     function checkAdminAccess() {
-      const password = prompt("Masukkan password admin:");
-      if (password === adminPassword) {
-        alert("Akses admin diterima!");
+      const pass = prompt("Masukkan password admin:");
+      if (pass === adminPassword) {
         document.getElementById("dashboard").style.display = "block";
-        loadOrdersFromSheet();
-      } else {
-        alert("Password salah!");
-      }
+        loadOrders();
+      } else alert("Password salah!");
     }
 
-    function toggleDashboard() {
-      const dash = document.getElementById('dashboard');
-      dash.style.display = dash.style.display === 'none' ? 'block' : 'none';
-    }
-
-    // ---- FORM SUBMIT ----
-    const form = document.getElementById('orderForm');
-    form.addEventListener('submit', e => {
+    document.getElementById("orderForm").addEventListener("submit", async (e) => {
       e.preventDefault();
-
-      const order = {
-        product: form.product.value,
-        notes: form.notes.value,
-        name: form.name.value,
-        contact: form.contact.value,
-        timestamp: new Date().toLocaleString()
+      const data = {
+        product: product.value,
+        notes: notes.value,
+        name: name.value,
+        contact: contact.value,
+        timestamp: new Date().toLocaleString(),
       };
 
-      // Simpan lokal
-      const orders = JSON.parse(localStorage.getItem('orders')) || [];
-      orders.push(order);
-      localStorage.setItem('orders', JSON.stringify(orders));
-
-      // Kirim ke Google Sheet
-      form.action = WEB_APP_URL;
-      form.submit();
+      await fetch(WEB_APP_URL, {
+        method: "POST",
+        body: JSON.stringify(data),
+      });
 
       alert("✅ Pesanan berhasil dikirim!");
-      form.reset();
+      e.target.reset();
     });
 
-    // ---- LOAD DATA DARI GOOGLE SHEET UNTUK ADMIN ----
-    async function loadOrdersFromSheet() {
-      const ordersList = document.getElementById('ordersList');
-      ordersList.innerHTML = "<p>Memuat data...</p>";
-
+    async function loadOrders() {
+      const ordersList = document.getElementById("ordersList");
+      ordersList.innerHTML = `<div class="spinner"></div><p class='text-center'>Memuat data dari Google Sheet...</p>`;
       try {
         const res = await fetch(WEB_APP_URL + "?action=get");
-        const data = await res.json();
-
-        if (data && data.length > 0) {
-          ordersList.innerHTML = "";
-          data.forEach((o, i) => {
-            ordersList.innerHTML += `
-              <div class="alert alert-info">
-                <strong>Pesanan ${i + 1}</strong><br>
-                Produk: ${o.product}<br>
-                Nama: ${o.name}<br>
-                Kontak: ${o.contact}<br>
-                Catatan: ${o.notes}<br>
-                Waktu: ${o.timestamp}
-              </div>
-            `;
-          });
-        } else {
-          ordersList.innerHTML = "<p>Belum ada pesanan di Google Sheet.</p>";
+        const orders = await res.json();
+        if (!orders || orders.length === 0) {
+          ordersList.innerHTML = "<p class='text-center'>Belum ada pesanan.</p>";
+          return;
         }
+
+        ordersList.innerHTML = orders.map((o, i) => `
+          <div class="alert alert-info fade show" style="animation: fadeIn 0.5s;">
+            <strong>#${i + 1}</strong><br>
+            <b>Produk:</b> ${o.product}<br>
+            <b>Nama:</b> ${o.name}<br>
+            <b>Kontak:</b> ${o.contact}<br>
+            <b>Catatan:</b> ${o.notes}<br>
+            <small>${o.timestamp}</small>
+          </div>
+        `).join('');
       } catch (err) {
-        ordersList.innerHTML = "<p>Gagal memuat data dari Google Sheet.</p>";
         console.error(err);
+        ordersList.innerHTML = "<p class='text-center text-danger'>❌ Gagal memuat data.</p>";
       }
     }
   </script>
