@@ -118,7 +118,7 @@
 
   <script>
     const adminPassword = "bowokeren";
-    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzjrBf2bNhpJrb5_5D4vYOj2rStetP99UPYstQLf43GUyk2mNNNRUKSk0wqff2Xe27REg/exec";
+    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxDaeOsZaR0iGKPBDExnpfcr8yIIQEAWBZjyDPNbK8RtOO7LySpQlEW6rHWUN8FPU8Ueg/exec";
 
     function toggleContactMenu() {
       document.getElementById("contactMenu").classList.toggle("show");
@@ -135,19 +135,28 @@
     }
 
     document.getElementById("orderForm").addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const data = {
-        product: product.value,
-        notes: notes.value,
-        name: name.value,
-        contact: contact.value,
-        timestamp: new Date().toLocaleString("id-ID"),
-      };
-      const formData = new URLSearchParams(data);
-      await fetch(WEB_APP_URL, { method: "POST", body: formData });
-      alert("✅ Pesanan berhasil dikirim!");
-      e.target.reset();
-    });
+  e.preventDefault();
+
+  // Ambil data dari form
+  const data = {
+    product: document.getElementById("product").value,
+    notes: document.getElementById("notes").value,
+    name: document.getElementById("name").value,
+    contact: document.getElementById("contact").value,
+    timestamp: new Date().toLocaleString("id-ID"),
+  };
+
+  // Pastikan dikirim dalam format FormData (lebih aman)
+  const formData = new FormData();
+  for (const key in data) formData.append(key, data[key]);
+
+  // Kirim data ke Apps Script
+  await fetch(WEB_APP_URL, { method: "POST", body: formData });
+
+  alert("✅ Pesanan berhasil dikirim!");
+  e.target.reset();
+});
+
 
     // 🧩 PERBAIKAN DASHBOARD
     async function loadOrders() {
@@ -213,4 +222,5 @@
   </script>
 </body>
 </html>
+
 
