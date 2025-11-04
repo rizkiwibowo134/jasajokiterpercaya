@@ -118,7 +118,7 @@
 
   <script>
     const adminPassword = "bowokeren";
-    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycby4b5QN-1JxCjCj1wsTCpVBquLBTEXilzP-Lvu1B6VZLdKQg2MuibhakfBvRqnn036m4A/exec";
+    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzbN7_aiGwc_Ar9PKnxvxxfobYEu5u1KcpGWucuvRskmkWLdWj5FMHccFfxkH10QODhQg/exec";
 
     function toggleContactMenu() {
       document.getElementById("contactMenu").classList.toggle("show");
@@ -162,7 +162,7 @@
         }
 
         ordersList.innerHTML = orders.map((o, i) => {
-          const nama = o.name || o.Nama || o.nama || "-";
+          const nama = o.name || o.Nama || o.nama || o["Nama Lengkap"] || "-";
           const produk = o.product || o.Produk || o.produk || "-";
           const catatan = o.notes || o.Catatan || o.catatan || "-";
           const kontak = o.contact || o.Kontak || o.kontak || "-";
@@ -200,7 +200,9 @@
     async function deleteOrder(row) {
       if (!confirm("Hapus pesanan ini?")) return;
       try {
-        await fetch(WEB_APP_URL + "?action=deleteOne&row=" + row, { method: "POST" });
+        const res = await fetch(WEB_APP_URL + "?action=deleteOne&row=" + row, { method: "POST" });
+        const text = await res.text();
+        console.log("Delete response:", text);
         alert("🗑 Pesanan dihapus!");
         loadOrders();
       } catch (err) {
