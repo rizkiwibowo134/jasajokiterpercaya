@@ -149,7 +149,7 @@
       e.target.reset();
     });
 
-    // 🧩 PERBAIKAN DASHBOARD DI SINI
+    // 🧩 PERBAIKAN DASHBOARD
     async function loadOrders() {
       const ordersList = document.getElementById("ordersList");
       ordersList.innerHTML = `<div class="spinner"></div><p class='text-center'>Memuat data dari Google Sheet...</p>`;
@@ -162,12 +162,11 @@
         }
 
         ordersList.innerHTML = orders.map((o, i) => {
-          // 🔧 perbaikan nama dan kolom lain
-          const nama = o.name || o.nama || o.Nama || "-";
-          const produk = o.product || o.produk || o.Produk || "-";
-          const catatan = o.notes || o.catatan || o.Catatan || "-";
-          const kontak = o.contact || o.kontak || o.Kontak || "-";
-          const waktu = o.timestamp || o.waktu || "-";
+          const nama = o.name || o.Nama || o.nama || "-";
+          const produk = o.product || o.Produk || o.produk || "-";
+          const catatan = o.notes || o.Catatan || o.catatan || "-";
+          const kontak = o.contact || o.Kontak || o.kontak || "-";
+          const waktu = o.timestamp || o.Timestamp || o.waktu || "-";
 
           return `
             <div class="alert alert-info fade show" style="animation: fadeIn 0.5s;">
@@ -186,7 +185,6 @@
       }
     }
 
-    // 🗑 Hapus semua data
     async function clearAllOrders() {
       if (!confirm("Apakah kamu yakin ingin menghapus semua data pesanan di Google Sheet?")) return;
       try {
@@ -199,7 +197,6 @@
       }
     }
 
-    // 🗑 Hapus satu pesanan
     async function deleteOrder(row) {
       if (!confirm("Hapus pesanan ini?")) return;
       try {
