@@ -6,7 +6,6 @@
   <title>Jasa Joki Terpercaya</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
-
   <style>
     body {
       background: linear-gradient(135deg, #e3f2fd, #ffffff, #000000);
@@ -15,138 +14,50 @@
       overflow-x: hidden;
       animation: fadeIn 1.2s ease-in-out;
     }
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @keyframes slideIn {
-      from {
-        opacity: 0;
-        transform: translateX(-50px);
-      }
-      to {
-        opacity: 1;
-        transform: translateX(0);
-      }
-    }
-
+    @keyframes fadeIn { from {opacity:0;transform:translateY(20px);} to {opacity:1;transform:translateY(0);} }
+    @keyframes slideIn { from {opacity:0;transform:translateX(-50px);} to {opacity:1;transform:translateX(0);} }
     header {
       background: linear-gradient(90deg, #0d47a1, #000000);
       color: white;
       padding: 40px;
       text-align: center;
       position: relative;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
       transition: 0.3s;
     }
-
-    header:hover {
-      transform: scale(1.02);
-    }
-
-    .hamburger {
-      position: absolute;
-      top: 25px;
-      left: 25px;
-      cursor: pointer;
-      z-index: 1000;
-    }
-
-    .hamburger div {
-      width: 25px;
-      height: 3px;
-      background: white;
-      margin: 5px 0;
-      transition: 0.4s;
-    }
-
-    .contact-menu {
-      position: absolute;
-      top: 70px;
-      left: 25px;
-      background: white;
-      border-radius: 10px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-      display: none;
-      padding: 15px;
-      width: 250px;
-      z-index: 999;
-      animation: slideIn 0.5s ease;
-    }
-
-    .contact-menu.show {
-      display: block;
-    }
-
+    header:hover { transform: scale(1.02); }
+    .hamburger { position: absolute; top: 25px; left: 25px; cursor: pointer; z-index: 1000; }
+    .hamburger div { width: 25px; height: 3px; background: white; margin: 5px 0; transition: 0.4s; }
+    .contact-menu { position: absolute; top: 70px; left: 25px; background: white; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); display: none; padding: 15px; width: 250px; z-index: 999; animation: slideIn 0.5s ease; }
+    .contact-menu.show { display: block; }
     .product-card {
       background: linear-gradient(135deg, #ffffff, #f1f1f1);
       border-radius: 15px;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
       margin: 20px 0;
       padding: 25px;
       transition: all 0.3s ease-in-out;
     }
-
-    .product-card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-    }
-
-    .btn-primary {
-      background: linear-gradient(90deg, #1976d2, #0d47a1);
-      border: none;
-      transition: 0.3s;
-    }
-
-    .btn-primary:hover {
-      transform: scale(1.05);
-    }
-
-    #dashboard {
-      display: none;
-      margin-top: 50px;
-    }
-
-    .spinner {
-      border: 4px solid #e3f2fd;
-      border-top: 4px solid #1565c0;
-      border-radius: 50%;
-      width: 40px;
-      height: 40px;
-      animation: spin 1s linear infinite;
-      margin: 30px auto;
-    }
-
-    @keyframes spin {
-      to {
-        transform: rotate(360deg);
-      }
-    }
-
+    .product-card:hover { transform: translateY(-10px); box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
+    .btn-primary { background: linear-gradient(90deg, #1976d2, #0d47a1); border: none; transition: 0.3s; }
+    .btn-primary:hover { transform: scale(1.05); }
+    #dashboard { display: none; margin-top: 50px; }
+    .spinner { border: 4px solid #e3f2fd; border-top: 4px solid #1565c0; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 30px auto; }
+    @keyframes spin { to { transform: rotate(360deg); } }
     footer {
       background: linear-gradient(90deg, #0d47a1, #000000);
       color: white;
       text-align: center;
       padding: 25px;
       margin-top: 50px;
-      box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 -4px 10px rgba(0,0,0,0.3);
     }
   </style>
 </head>
 <body>
   <header ondblclick="checkAdminAccess()">
     <div class="hamburger" onclick="toggleContactMenu()">
-      <div></div>
-      <div></div>
-      <div></div>
+      <div></div><div></div><div></div>
     </div>
     <h1>Jasa Joki Terpercaya</h1>
     <p>Pesan jasa joki Anda sekarang! Cepat, aman, dan terpercaya.</p>
@@ -162,62 +73,43 @@
     <section id="products" class="mt-5">
       <h2 class="text-center mb-4">Produk Joki Kami</h2>
       <div class="row">
-        <div class="col-md-4">
-          <div class="product-card">
-            <h4>Joki laporan</h4>
-            <p><strong>Rp 50.000 - Rp 200.000</strong></p>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="product-card">
-            <h4>Joki makalah</h4>
-            <p><strong>Rp 100.000 - Rp 500.000</strong></p>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="product-card">
-            <h4>Joki Lainnya</h4>
-            <p><strong>Harga: Sesuai Kesepakatan</strong></p>
-          </div>
-        </div>
+        <div class="col-md-4"><div class="product-card"><h4>Joki laporan</h4><p><strong>Rp 50.000 - Rp 200.000</strong></p></div></div>
+        <div class="col-md-4"><div class="product-card"><h4>Joki makalah</h4><p><strong>Rp 100.000 - Rp 500.000</strong></p></div></div>
+        <div class="col-md-4"><div class="product-card"><h4>Joki Lainnya</h4><p><strong>Harga: Sesuai Kesepakatan</strong></p></div></div>
       </div>
     </section>
 
     <section id="order" class="mt-5">
       <h2 class="text-center mb-4">Pesan Sekarang</h2>
       <form id="orderForm" class="p-4 bg-light rounded shadow">
-        <div class="mb-3">
-          <label class="form-label">Pilih Produk</label>
+        <div class="mb-3"><label class="form-label">Pilih Produk</label>
           <select class="form-control" id="product" required>
             <option value="">-- Pilih Produk --</option>
-            <option>Joki laporan</option>
-            <option>Joki makalah</option>
-            <option>Joki Lainnya</option>
+            <option>Joki laporan</option><option>Joki makalah</option><option>Joki Lainnya</option>
           </select>
         </div>
-        <div class="mb-3">
-          <label class="form-label">Catatan</label>
+        <div class="mb-3"><label class="form-label">Catatan</label>
           <textarea class="form-control" id="notes" rows="3" required></textarea>
         </div>
-        <div class="mb-3">
-          <label class="form-label">Nama</label>
+        <div class="mb-3"><label class="form-label">Nama</label>
           <input type="text" class="form-control" id="name" required />
         </div>
-        <div class="mb-3">
-          <label class="form-label">Kontak (WA/Email)</label>
+        <div class="mb-3"><label class="form-label">Kontak (WA/Email)</label>
           <input type="text" class="form-control" id="contact" required />
         </div>
         <button class="btn btn-primary w-100" type="submit">Kirim Pesanan</button>
       </form>
     </section>
 
+    <!-- 🔧 DASHBOARD ADMIN -->
     <section id="dashboard">
-  <h2 class="text-center mb-4">Dashboard Admin</h2>
-  <div class="text-center mb-3">
-    <button class="btn btn-danger" onclick="clearAllOrders()">🗑 Hapus Semua Pesanan</button>
+      <h2 class="text-center mb-4">Dashboard Admin</h2>
+      <div class="text-center mb-3">
+        <button class="btn btn-danger" onclick="clearAllOrders()">🗑 Hapus Semua Pesanan</button>
+      </div>
+      <div id="ordersList"></div>
+    </section>
   </div>
-  <div id="ordersList"></div>
-</section>
 
   <footer>
     <p>Butuh bantuan? Hubungi admin via WhatsApp</p>
@@ -226,7 +118,7 @@
 
   <script>
     const adminPassword = "bowokeren";
-    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycby4b5QN-1JxCjCj1wsTCpVBquLBTEXilzP-Lvu1B6VZLdKQg2MuibhakfBvRqnn036m4A/exec"; // Ganti dengan URL Web App dari Google Apps Script
+    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycby4b5QN-1JxCjCj1wsTCpVBquLBTEXilzP-Lvu1B6VZLdKQg2MuibhakfBvRqnn036m4A/exec";
 
     function toggleContactMenu() {
       document.getElementById("contactMenu").classList.toggle("show");
@@ -251,18 +143,13 @@
         contact: contact.value,
         timestamp: new Date().toLocaleString("id-ID"),
       };
-
       const formData = new URLSearchParams(data);
-
-      await fetch(WEB_APP_URL, {
-        method: "POST",
-        body: formData,
-      });
-
+      await fetch(WEB_APP_URL, { method: "POST", body: formData });
       alert("✅ Pesanan berhasil dikirim!");
       e.target.reset();
     });
 
+    // 🧩 PERBAIKAN DASHBOARD DI SINI
     async function loadOrders() {
       const ordersList = document.getElementById("ordersList");
       ordersList.innerHTML = `<div class="spinner"></div><p class='text-center'>Memuat data dari Google Sheet...</p>`;
@@ -274,26 +161,56 @@
           return;
         }
 
-        ordersList.innerHTML = orders
-          .map(
-            (o, i) => `
-          <div class="alert alert-info fade show" style="animation: fadeIn 0.5s;">
-            <strong>#${i + 1}</strong><br>
-            <b>Produk:</b> ${o.product}<br>
-            <b>Nama:</b> ${o.name}<br>
-            <b>Kontak:</b> ${o.contact}<br>
-            <b>Catatan:</b> ${o.notes}<br>
-            <small>${o.timestamp}</small>
-          </div>
-        `
-          )
-          .join("");
+        ordersList.innerHTML = orders.map((o, i) => {
+          // 🔧 perbaikan nama dan kolom lain
+          const nama = o.name || o.nama || o.Nama || "-";
+          const produk = o.product || o.produk || o.Produk || "-";
+          const catatan = o.notes || o.catatan || o.Catatan || "-";
+          const kontak = o.contact || o.kontak || o.Kontak || "-";
+          const waktu = o.timestamp || o.waktu || "-";
+
+          return `
+            <div class="alert alert-info fade show" style="animation: fadeIn 0.5s;">
+              <strong>#${i + 1}</strong><br>
+              <b>Produk:</b> ${produk}<br>
+              <b>Nama:</b> ${nama}<br>
+              <b>Kontak:</b> ${kontak}<br>
+              <b>Catatan:</b> ${catatan}<br>
+              <small>${waktu}</small><br>
+              <button class="btn btn-sm btn-outline-danger mt-2" onclick="deleteOrder(${i + 2})">🗑 Hapus Pesanan Ini</button>
+            </div>`;
+        }).join("");
       } catch (err) {
         console.error(err);
         ordersList.innerHTML = "<p class='text-center text-danger'>❌ Gagal memuat data.</p>";
       }
     }
+
+    // 🗑 Hapus semua data
+    async function clearAllOrders() {
+      if (!confirm("Apakah kamu yakin ingin menghapus semua data pesanan di Google Sheet?")) return;
+      try {
+        await fetch(WEB_APP_URL + "?action=clear", { method: "POST" });
+        alert("✅ Semua data pesanan berhasil dihapus!");
+        loadOrders();
+      } catch (err) {
+        console.error(err);
+        alert("❌ Gagal menghapus data.");
+      }
+    }
+
+    // 🗑 Hapus satu pesanan
+    async function deleteOrder(row) {
+      if (!confirm("Hapus pesanan ini?")) return;
+      try {
+        await fetch(WEB_APP_URL + "?action=deleteOne&row=" + row, { method: "POST" });
+        alert("🗑 Pesanan dihapus!");
+        loadOrders();
+      } catch (err) {
+        console.error(err);
+        alert("❌ Gagal menghapus pesanan.");
+      }
+    }
   </script>
 </body>
 </html>
-
